@@ -61,6 +61,26 @@ public class WeatherServiceImpl implements WeatherService{
         return this.doGetWeather(url);
     }
 
+    @Override
+    public void weatherDataSync(String cityName) {
+        String url = WATHER_API+"city="+cityName;
+        saveWeatherData(url);
+    }
+
+    /**
+     * 把天气数据缓存
+     * @param url
+     */
+    private void saveWeatherData(String url) {
+        ResponseEntity<String> repString = restTemplate.getForEntity(url, String.class);
+        if (repString.getStatusCodeValue() == API_STATUS){
+           ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();
+
+           ops.set(url, repString.getBody(), TIME_OUT, TimeUnit.SECONDS);
+           log.info("{}:{} 缓存更新结束",url,repString.getBody());
+        }
+    }
+
 
     private WeatherResponse doGetWeather(String url) {
         ObjectMapper mapper = new ObjectMapper();
