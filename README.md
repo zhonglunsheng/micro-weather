@@ -55,3 +55,4 @@ msa-weather-report-eureka-feign-gateway-hystrix|天气预报微服务
 
 
 #### 界面
+![mark](http://upload.i20forever.cn/blog/180702/1D8Gj3HehA.png?imageslim)
