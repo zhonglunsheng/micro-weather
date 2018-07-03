@@ -27,10 +27,22 @@ repositories {
 	maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
 }
 
+ext {
+	springCloudVersion = 'Finchley.M2'
+}
 
 dependencies {
 	// 该依赖用于编译阶段
 	compile('org.springframework.boot:spring-boot-starter-web')
-	
+
+	// Eureka Client
+	compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
+
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
 }
